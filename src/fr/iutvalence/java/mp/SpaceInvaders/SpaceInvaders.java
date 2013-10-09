@@ -21,9 +21,9 @@ public class SpaceInvaders
 
     // TODO (fixed) write a comment 
     /**
-     * Declaration of the value which represent the Ennemy
+     * Declaration of the value which represent the Enemy
      */
-    public final static int CONSTANT_ENNEMY = 6;
+    public final static int CONSTANT_ENEMY = 6;
 
     // TODO (fixed) write a comment 
     /**
@@ -55,6 +55,11 @@ public class SpaceInvaders
      */
     private int[][] grid;
 
+    /**
+     * Declaration of the enemies counter 
+     */
+    private int counterOfEnemiesPlace = 2 ;
+
     // TODO (fixed) write a comment
     /**
      * Declaration of the Spacecraft
@@ -63,9 +68,9 @@ public class SpaceInvaders
 
     // TODO (fixed) write a comment
     /**
-     * Declaration of the Ennemy
+     * Declaration of the Enemy
      */
-    private int ennemy;
+    private int enemy;
 
     // TODO (fixed) write a comment 
     /**
@@ -79,6 +84,17 @@ public class SpaceInvaders
      */
     private int empty;
 
+    /**
+     * Declaration of the ChangeSide
+     */
+    private int changeSide;
+    
+    /**
+     * declaration of the ChangeLine
+     */
+    
+    private int changeLine;
+
     // TODO (fixed) write a comment 
     /**
      * Declaration of the default constructor
@@ -87,9 +103,11 @@ public class SpaceInvaders
     {   
         this.grid = new int [CONSTANT_GRID][CONSTANT_GRID];
         this.spacecraft = CONSTANT_SPACECRAFT;
-        this.ennemy = CONSTANT_ENNEMY;
+        this.enemy = CONSTANT_ENEMY;
         this.fire = CONSTANT_FIRE;
         this.empty = CONSTANT_EMPTY;
+        this.changeSide = 0;
+        this.changeLine = 0;
         // TODO créer une fonction pour alléger le programme qui parcours le tableau
         //        static void parcours(int i, int j, int k, int l)
         //        {
@@ -114,50 +132,102 @@ public class SpaceInvaders
         }
         this.grid[CONSTANT_PLACE_SPACECRAFT_X][CONSTANT_PLACE_SPACECRAFT_Y]=CONSTANT_SPACECRAFT;
 
-        // put ennemies
+        // put enemies
         for(int x=0; x<3; x++)
         {
-            for(int y = 1; y<14; y++)
+            for(int y =0; y<13; y++)
             {
-                this.grid[x][y] = CONSTANT_ENNEMY;
+                this.grid[x][y] = CONSTANT_ENEMY;
             }
         }
-        // display the ennemies' grid
+        // display the grid
         while(true)
         {
             for(int x=0; x<15; x++)
             {
                 for(int y = 0; y<15; y++)
                 {
-                    if (this.grid[x][y]==CONSTANT_EMPTY)
+                    if (this.grid[x][y]==CONSTANT_EMPTY) /* if we have some empty box, we put V */
                     {
                         System.out.print("V");
                     }
                     else 
                     {
-                        System.out.print(this.grid[x][y]);
+                        System.out.print(this.grid[x][y]); // display the grid normally //
                     }    
-                 }
+                }
                 System.out.println();
             }
             try
             {
-                Thread.sleep(3000);
+                Thread.sleep(3000); // wait 3s //
             }
             catch (InterruptedException e)
             {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            
-            // move ennemies to right
-            for(int x=0; x<15; x++)
-            {
-                for(int y = 2; y<15; y++)
+
+            // move enemies on a side 
+
+            for(int x=0; x<3; x++)
+            { 
+                if( this.counterOfEnemiesPlace== 1) // put the enemies at the left end //
                 {
-                    this.grid[x][y]=CONSTANT_ENNEMY;
+                    for(int y = 0; y<13; y++)
+                    {
+                        this.grid[x][y]=CONSTANT_ENEMY;
+                    }
+                    for(int y = 13; y<15; y++)
+                    {
+                        this.grid[x][y]=CONSTANT_EMPTY;
+
+                    }
+                    this.changeSide=0;
+                    this.changeLine = 1;
+                } 
+
+                if (this.counterOfEnemiesPlace == 2) // put the enemies on the center grid with one empty box at left and right//
+                {
+
+                    for(int y = 0; y<2; y++)
+                    {
+                        this.grid[x][y]=CONSTANT_EMPTY;
+
+                    }
+                    for(int y = 1; y<14; y++)
+                    {
+                        this.grid[x][y]=CONSTANT_ENEMY;
+                    }
+                    for(int y = 14; y<15; y++)
+                    {
+                        this.grid[x][y]=CONSTANT_EMPTY;
+
+                    }
+
                 }
-            }            
+                if (this.counterOfEnemiesPlace == 3) // put the enemies at the right end
+                {
+
+                    for(int y = 0; y<2; y++)
+                    {
+                        this.grid[x][y]=CONSTANT_EMPTY;
+
+                    }
+                    for(int y = 2; y<15; y++)
+                    {
+                        this.grid[x][y]=CONSTANT_ENEMY;
+                    }
+                    this.changeSide=1;
+
+                }             
+            } 
+            if (this.changeSide == 1)
+                this.counterOfEnemiesPlace --; // to put this.counterOfEnemiesPlace at 2 and in other hand at 1
+            else 
+                this.counterOfEnemiesPlace ++; // to up this.counterOfEnemiesPlace
+   
+
         } 
     }
 }
