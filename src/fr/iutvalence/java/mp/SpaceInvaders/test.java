@@ -1,5 +1,6 @@
 package fr.iutvalence.java.mp.SpaceInvaders;
 
+// TODO (fix) comply with naming conventions
 public class test
 {
 

@@ -1,55 +1,48 @@
 package fr.iutvalence.java.mp.SpaceInvaders;
 
-//TODO (fixed) Fix comment, this class is everything but a launch menu
 /**
  * class SpaceInvaders : A new game
  * @author thevenim
  */
 public class SpaceInvaders 
 { 
-    // TODO (fixed) write a comment
+    // TODO (fix) rewrite comment
     /**
      * Declaration of the grid cell numbers
      */
     public final static int CONSTANT_GRID = 15;
 
-    // TODO (fixed) write a comment
     /**
      * Declaration of the value which represent the Spacecraft
      */
     public final static int CONSTANT_SPACECRAFT = 7;
 
-    // TODO (fixed) write a comment 
     /**
      * Declaration of the value which represent the Enemy
      */
     public final static int CONSTANT_ENEMY = 6;
 
-    // TODO (fixed) write a comment 
     /**
      * Declaration of the value which represent the Fire
      */
     public final static int CONSTANT_FIRE = 1;
 
-    // TODO (fixed) write a comment 
     /**
      * Declaration of the value which represent the Void
      */
     public final static int CONSTANT_EMPTY = 0;
 
-    // TODO (fixed) write a comment 
     /**
      * Declaration of the lines
      */
     public final static int CONSTANT_PLACE_SPACECRAFT_X = 14;
 
-    // TODO (fixed) write a comment
     /**
      * Declaration of the value which represent the columns
      */
     public final static int CONSTANT_PLACE_SPACECRAFT_Y = 7;
 
-    // TODO (fixed) write a comment
+    // TODO (fix) rewrite comment
     /**
      * Declaration of the Grid
      */
@@ -58,44 +51,49 @@ public class SpaceInvaders
     /**
      * Declaration of the enemies counter 
      */
+    // TODO (fix) rename field
+    // TODO (fix) initialize field in a constructor
     private int counterOfEnemiesPlace = 2 ;
 
+    // TODO (think about it) what is the purpose of this field?
     // TODO (fixed) write a comment
     /**
      * Declaration of the Spacecraft
      */
     private int spacecraft;
 
-    // TODO (fixed) write a comment
+    // TODO (think about it) what is the purpose of this field?
     /**
      * Declaration of the Enemy
      */
     private int enemy;
 
-    // TODO (fixed) write a comment 
+    // TODO (think about it) what is the purpose of this field?
     /**
      * Declaration of the Fire
      */
     private int fire;
 
-    // TODO (fixed) write a comment 
+    // TODO (think about it) what is the purpose of this field?
     /**
      * Declaration of the Void
      */
     private int empty;
 
+    
+    // TODO (think about it) what is the purpose of this field?
     /**
      * Declaration of the ChangeSide
      */
     private int changeSide;
     
+    // TODO (think about it) what is the purpose of this field?
     /**
      * declaration of the ChangeLine
      */
-    
     private int changeLine;
 
-    // TODO (fixed) write a comment 
+    // TODO (fix) rewrite comment
     /**
      * Declaration of the default constructor
      */
