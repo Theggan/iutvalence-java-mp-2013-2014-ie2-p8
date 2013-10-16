@@ -6,9 +6,9 @@ package fr.iutvalence.java.mp.SpaceInvaders;
  */
 public class SpaceInvaders 
 { 
-    // TODO (fix) rewrite comment
+    // TODO (fixed) rewrite comment
     /**
-     * Declaration of the grid cell numbers
+     * Declaration of the size grid ( 15 per 15 ) 
      */
     public final static int CONSTANT_GRID = 15;
 
@@ -42,82 +42,57 @@ public class SpaceInvaders
      */
     public final static int CONSTANT_PLACE_SPACECRAFT_Y = 7;
 
-    // TODO (fix) rewrite comment
+    // TODO (fixed) rewrite comment
     /**
-     * Declaration of the Grid
+     * Declaration of the Grid to put our elements in it, like Spacecraft, enemies etc .. 
      */
     private int[][] grid;
 
     /**
      * Declaration of the enemies counter 
      */
-    // TODO (fix) rename field
-    // TODO (fix) initialize field in a constructor
-    private int counterOfEnemiesPlace = 2 ;
+    // TODO (fixed) rename field
+    // TODO (fixed) initialize field in a constructor
+    private int enemiesSideCounter;
 
-    // TODO (think about it) what is the purpose of this field?
-    // TODO (fixed) write a comment
-    /**
-     * Declaration of the Spacecraft
-     */
-    private int spacecraft;
-
-    // TODO (think about it) what is the purpose of this field?
-    /**
-     * Declaration of the Enemy
-     */
-    private int enemy;
-
-    // TODO (think about it) what is the purpose of this field?
-    /**
-     * Declaration of the Fire
-     */
-    private int fire;
-
-    // TODO (think about it) what is the purpose of this field?
-    /**
-     * Declaration of the Void
-     */
-    private int empty;
-
-    
     // TODO (think about it) what is the purpose of this field?
     /**
      * Declaration of the ChangeSide
      */
     private int changeSide;
-    
+
     // TODO (think about it) what is the purpose of this field?
     /**
      * declaration of the ChangeLine
      */
     private int changeLine;
+    
+    private int currentEnemiesLine;
+    
+    private int nextLineAfterEnemies;
 
-    // TODO (fix) rewrite comment
+    // TODO (fixed) rewrite comment
     /**
-     * Declaration of the default constructor
+     * Declaration of the SpaceInvaders constructor
      */
     public SpaceInvaders()
     {   
         this.grid = new int [CONSTANT_GRID][CONSTANT_GRID];
-        this.spacecraft = CONSTANT_SPACECRAFT;
-        this.enemy = CONSTANT_ENEMY;
-        this.fire = CONSTANT_FIRE;
-        this.empty = CONSTANT_EMPTY;
         this.changeSide = 0;
         this.changeLine = 0;
-        // TODO créer une fonction pour alléger le programme qui parcours le tableau
-        //        static void parcours(int i, int j, int k, int l)
-        //        {
-        //          for(String str : tabBis)
-        //            System.out.println(str);
-        //        }
+        this.enemiesSideCounter = 2;
+        this.currentEnemiesLine = 0;
+        this.nextLineAfterEnemies = 3;
+        
+        
+        
 
-
-
-
-
-
+    }
+    /**
+     * Method to place elements in the grid cell
+     */
+    public void placementOfElements()
+    {
 
 
         // fill the grid with "empty" value
@@ -129,6 +104,14 @@ public class SpaceInvaders
             }
         }
         this.grid[CONSTANT_PLACE_SPACECRAFT_X][CONSTANT_PLACE_SPACECRAFT_Y]=CONSTANT_SPACECRAFT;
+    }
+    
+    /**
+     * Method to display and move the elements in the grid
+     */
+
+    public void displayAndMoveElements()
+    {
 
         // put enemies
         for(int x=0; x<3; x++)
@@ -156,6 +139,19 @@ public class SpaceInvaders
                 }
                 System.out.println();
             }
+            if (this.changeLine==1)
+            {
+                for(int x=this.currentEnemiesLine;x<this.nextLineAfterEnemies;x++)
+                {
+                    for ( int y = 0; y<15;y++)
+                    {
+                        this.grid[x][y]=CONSTANT_EMPTY;
+                    }
+                }
+                this.currentEnemiesLine ++;
+                this.nextLineAfterEnemies ++;
+                this.changeLine=0;              
+            }
             try
             {
                 Thread.sleep(3000); // wait 3s //
@@ -168,9 +164,9 @@ public class SpaceInvaders
 
             // move enemies on a side 
 
-            for(int x=0; x<3; x++)
+            for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
             { 
-                if( this.counterOfEnemiesPlace== 1) // put the enemies at the left end //
+                if( this.enemiesSideCounter== 1) // put the enemies at the left end //
                 {
                     for(int y = 0; y<13; y++)
                     {
@@ -185,7 +181,7 @@ public class SpaceInvaders
                     this.changeLine = 1;
                 } 
 
-                if (this.counterOfEnemiesPlace == 2) // put the enemies on the center grid with one empty box at left and right//
+                if (this.enemiesSideCounter == 2) // put the enemies on the center grid with one empty box at left and right//
                 {
 
                     for(int y = 0; y<2; y++)
@@ -204,7 +200,7 @@ public class SpaceInvaders
                     }
 
                 }
-                if (this.counterOfEnemiesPlace == 3) // put the enemies at the right end
+                if (this.enemiesSideCounter == 3) // put the enemies at the right end
                 {
 
                     for(int y = 0; y<2; y++)
@@ -221,11 +217,19 @@ public class SpaceInvaders
                 }             
             } 
             if (this.changeSide == 1)
-                this.counterOfEnemiesPlace --; // to put this.counterOfEnemiesPlace at 2 and in other hand at 1
-            else 
-                this.counterOfEnemiesPlace ++; // to up this.counterOfEnemiesPlace
-   
+                this.enemiesSideCounter --; // to put this.enemiesSideCounter at 2 and in other hand at 1
+            else
+                this.enemiesSideCounter ++; // to up this.enemiesSideCounter
+          
 
-        } 
+        }
+
+
+
     }
+
 }
+
+
+
+
