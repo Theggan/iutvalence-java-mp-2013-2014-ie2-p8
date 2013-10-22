@@ -6,39 +6,39 @@ package fr.iutvalence.java.mp.SpaceInvaders;
  */
 public class SpaceInvaders 
 { 
-    // TODO (fixed) rewrite comment
     /**
-     * Declaration of the size grid ( 15 per 15 ) 
+     * size of the grid ( 15 per 15 ) 
      */
     public final static int CONSTANT_GRID = 15;
 
     /**
-     * Declaration of the value which represent the Spacecraft
+     * constant which represent the Spacecraft
      */
     public final static int CONSTANT_SPACECRAFT = 7;
 
     /**
-     * Declaration of the value which represent the Enemy
+     * constant which represent the Enemy
      */
     public final static int CONSTANT_ENEMY = 6;
 
     /**
-     * Declaration of the value which represent the Fire
+     * constant which represent the Fire
      */
     public final static int CONSTANT_FIRE = 1;
 
     /**
-     * Declaration of the value which represent the Void
+     * constant which represent the Void
      */
     public final static int CONSTANT_EMPTY = 0;
 
+    // TODO (fix) fix comment
     /**
      * Declaration of the lines
      */
     public final static int CONSTANT_PLACE_SPACECRAFT_X = 14;
 
     /**
-     * Declaration of the value which represent the columns
+     * constant which represent the columns
      */
     public final static int CONSTANT_PLACE_SPACECRAFT_Y = 7;
 
@@ -49,29 +49,30 @@ public class SpaceInvaders
     private int[][] grid;
 
     /**
-     * Declaration of the enemies counter 
+     * enemies counter 
      */
-    // TODO (fixed) rename field
-    // TODO (fixed) initialize field in a constructor
+    // TODO (fix) rename field (more explicit?)
     private int enemiesSideCounter;
 
-    // TODO (think about it) what is the purpose of this field?
+    // TODO (fix) rename field (more explicit?)
     /**
-     * Declaration of the ChangeSide
+     *  ChangeSide
      */
     private int changeSide;
 
-    // TODO (think about it) what is the purpose of this field?
+    // TODO (fix) rename field (more explicit?)
     /**
-     * declaration of the ChangeLine
+     * ChangeLine
      */
     private int changeLine;
     
+    // TODO (fix) write comment
     private int currentEnemiesLine;
-    
+
+    // TODO (fix) write comment
     private int nextLineAfterEnemies;
 
-    // TODO (fixed) rewrite comment
+    // TODO (fix) rewrite comment, say how is the game once created
     /**
      * Declaration of the SpaceInvaders constructor
      */
@@ -83,18 +84,14 @@ public class SpaceInvaders
         this.enemiesSideCounter = 2;
         this.currentEnemiesLine = 0;
         this.nextLineAfterEnemies = 3;
-        
-        
-        
-
     }
+    
     /**
      * Method to place elements in the grid cell
      */
+    // TODO (fix) rename method
     public void placementOfElements()
     {
-
-
         // fill the grid with "empty" value
         for(int x=0; x<15; x++)
         {
@@ -109,7 +106,7 @@ public class SpaceInvaders
     /**
      * Method to display and move the elements in the grid
      */
-
+    // TODO (fix) this method should be cut in two halves
     public void displayAndMoveElements()
     {
 
