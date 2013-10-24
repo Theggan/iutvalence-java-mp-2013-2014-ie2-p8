@@ -13,10 +13,14 @@ public class Test
     {
         // TODO Auto-generated method stub
         SpaceInvaders newGame = new SpaceInvaders();
-        newGame.placementOfElements();
-        newGame.displayAndMoveElements();
-        
-        
+          
+        while(true)
+        {
+            newGame.play();
+        }
+
+
+
     }
 
 }

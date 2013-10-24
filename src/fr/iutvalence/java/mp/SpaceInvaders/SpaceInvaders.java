@@ -31,14 +31,14 @@ public class SpaceInvaders
      */
     public final static int CONSTANT_EMPTY = 0;
 
-    // TODO (fix) fix comment
+    // TODO (fixED) fix comment
     /**
-     * Declaration of the lines
+     * Declaration of the place of Spacecraft on the grid at the beginning (Line)
      */
     public final static int CONSTANT_PLACE_SPACECRAFT_X = 14;
 
     /**
-     * constant which represent the columns
+     * Declaration of the place of Spacecraft on the grid at he beginning (Column)
      */
     public final static int CONSTANT_PLACE_SPACECRAFT_Y = 7;
 
@@ -48,29 +48,18 @@ public class SpaceInvaders
      */
     private int[][] grid;
 
+    // TODO (fixed) write comment
     /**
-     * enemies counter 
+     * Declaration of the current enemies line 
      */
-    // TODO (fix) rename field (more explicit?)
-    private int enemiesSideCounter;
-
-    // TODO (fix) rename field (more explicit?)
-    /**
-     *  ChangeSide
-     */
-    private int changeSide;
-
-    // TODO (fix) rename field (more explicit?)
-    /**
-     * ChangeLine
-     */
-    private int changeLine;
-    
-    // TODO (fix) write comment
     private int currentEnemiesLine;
 
-    // TODO (fix) write comment
+    // TODO (fixed) write comment
+    /**
+     * Declaration of enemies line limit 
+     */
     private int nextLineAfterEnemies;
+
 
     // TODO (fix) rewrite comment, say how is the game once created
     /**
@@ -79,20 +68,18 @@ public class SpaceInvaders
     public SpaceInvaders()
     {   
         this.grid = new int [CONSTANT_GRID][CONSTANT_GRID];
-        this.changeSide = 0;
-        this.changeLine = 0;
-        this.enemiesSideCounter = 2;
         this.currentEnemiesLine = 0;
         this.nextLineAfterEnemies = 3;
+        this.fillGridWithSpaceCraftAndEmptyCase();    
+
     }
-    
+
     /**
      * Method to place elements in the grid cell
      */
     // TODO (fix) rename method
-    public void placementOfElements()
+    public void fillGridWithSpaceCraftAndEmptyCase()
     {
-        // fill the grid with "empty" value
         for(int x=0; x<15; x++)
         {
             for (int y=0; y<15; y++)
@@ -102,130 +89,145 @@ public class SpaceInvaders
         }
         this.grid[CONSTANT_PLACE_SPACECRAFT_X][CONSTANT_PLACE_SPACECRAFT_Y]=CONSTANT_SPACECRAFT;
     }
-    
+
     /**
-     * Method to display and move the elements in the grid
+     * method to display the grid with elements
      */
-    // TODO (fix) this method should be cut in two halves
-    public void displayAndMoveElements()
+    public void displayGrid()
     {
-
-        // put enemies
-        for(int x=0; x<3; x++)
+        for(int x=0; x<15; x++)
         {
-            for(int y =0; y<13; y++)
+            for(int y = 0; y<15; y++)
             {
-                this.grid[x][y] = CONSTANT_ENEMY;
+                if (this.grid[x][y]==CONSTANT_EMPTY) /* if we have some empty box, we put V */
+                {
+                    System.out.print("V");
+                }
+                else 
+                {
+                    System.out.print(this.grid[x][y]); // display the grid normally //
+                }    
             }
+            System.out.println();
         }
-        // display the grid
-        while(true)
-        {
-            for(int x=0; x<15; x++)
-            {
-                for(int y = 0; y<15; y++)
-                {
-                    if (this.grid[x][y]==CONSTANT_EMPTY) /* if we have some empty box, we put V */
-                    {
-                        System.out.print("V");
-                    }
-                    else 
-                    {
-                        System.out.print(this.grid[x][y]); // display the grid normally //
-                    }    
-                }
-                System.out.println();
-            }
-            if (this.changeLine==1)
-            {
-                for(int x=this.currentEnemiesLine;x<this.nextLineAfterEnemies;x++)
-                {
-                    for ( int y = 0; y<15;y++)
-                    {
-                        this.grid[x][y]=CONSTANT_EMPTY;
-                    }
-                }
-                this.currentEnemiesLine ++;
-                this.nextLineAfterEnemies ++;
-                this.changeLine=0;              
-            }
-            try
-            {
-                Thread.sleep(3000); // wait 3s //
-            }
-            catch (InterruptedException e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-            // move enemies on a side 
-
-            for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
-            { 
-                if( this.enemiesSideCounter== 1) // put the enemies at the left end //
-                {
-                    for(int y = 0; y<13; y++)
-                    {
-                        this.grid[x][y]=CONSTANT_ENEMY;
-                    }
-                    for(int y = 13; y<15; y++)
-                    {
-                        this.grid[x][y]=CONSTANT_EMPTY;
-
-                    }
-                    this.changeSide=0;
-                    this.changeLine = 1;
-                } 
-
-                if (this.enemiesSideCounter == 2) // put the enemies on the center grid with one empty box at left and right//
-                {
-
-                    for(int y = 0; y<2; y++)
-                    {
-                        this.grid[x][y]=CONSTANT_EMPTY;
-
-                    }
-                    for(int y = 1; y<14; y++)
-                    {
-                        this.grid[x][y]=CONSTANT_ENEMY;
-                    }
-                    for(int y = 14; y<15; y++)
-                    {
-                        this.grid[x][y]=CONSTANT_EMPTY;
-
-                    }
-
-                }
-                if (this.enemiesSideCounter == 3) // put the enemies at the right end
-                {
-
-                    for(int y = 0; y<2; y++)
-                    {
-                        this.grid[x][y]=CONSTANT_EMPTY;
-
-                    }
-                    for(int y = 2; y<15; y++)
-                    {
-                        this.grid[x][y]=CONSTANT_ENEMY;
-                    }
-                    this.changeSide=1;
-
-                }             
-            } 
-            if (this.changeSide == 1)
-                this.enemiesSideCounter --; // to put this.enemiesSideCounter at 2 and in other hand at 1
-            else
-                this.enemiesSideCounter ++; // to up this.enemiesSideCounter
-          
-
-        }
-
-
-
     }
 
+    /**
+     * Method to move elements to the left
+     */
+    public void left()
+    {
+        for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
+        {
+            for(int y = 0; y<13; y++)
+            {
+                this.grid[x][y]=CONSTANT_ENEMY;
+            }
+            for(int y = 13; y<15; y++)
+            {
+                this.grid[x][y]=CONSTANT_EMPTY;
+
+            }
+        }
+    }
+
+    /**
+     * Method to move elements to the center
+     */
+    public void center()
+    {
+        for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
+        {
+            for(int y = 0; y<2; y++)
+            {
+                this.grid[x][y]=CONSTANT_EMPTY;
+            }
+            for(int y = 1; y<14; y++)
+            {
+                this.grid[x][y]=CONSTANT_ENEMY;
+            }
+            for(int y = 14; y<15; y++)
+            {
+                this.grid[x][y]=CONSTANT_EMPTY;
+            }
+        }
+    }
+
+    /**
+     * Method to move elements to the right
+     */
+    public void right()
+    {
+        for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
+        {
+            for(int y = 0; y<2; y++)
+            {
+                this.grid[x][y]=CONSTANT_EMPTY;
+            }
+            for(int y = 2; y<15; y++)
+            {
+                this.grid[x][y]=CONSTANT_ENEMY;
+            }
+        }
+    }
+
+    /**
+     * Method to down 
+     */
+    public void changeLine()
+    {
+        for(int x=this.currentEnemiesLine;x<this.nextLineAfterEnemies;x++)
+        {
+            for ( int y = 0; y<15;y++)
+            {
+                this.grid[x][y]=CONSTANT_EMPTY;
+            }
+        }
+        this.currentEnemiesLine ++;
+        this.nextLineAfterEnemies ++;
+    }
+    
+    /**
+     * Method to pause
+     */
+    public void pause()
+    {
+        try
+        {
+            Thread.sleep(3000); // wait 3s //
+        }
+        catch (InterruptedException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    
+    /**
+     * Method to play
+     */
+    public void play()
+    {
+        this.left();
+        this.displayGrid();
+        this.pause();
+        this.center();
+        this.displayGrid();
+        this.pause();
+        this.right();
+        this.displayGrid();
+        this.pause();
+        this.center();
+        this.displayGrid();
+        this.pause();
+        this.left();
+        this.displayGrid();
+        this.pause();
+        this.changeLine();
+    }
 }
+
+
 
 
 
