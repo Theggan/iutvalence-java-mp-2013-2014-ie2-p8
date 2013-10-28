@@ -31,7 +31,6 @@ public class SpaceInvaders
      */
     public final static int CONSTANT_EMPTY = 0;
 
-    // TODO (fixED) fix comment
     /**
      * Declaration of the place of Spacecraft on the grid at the beginning (Line)
      */
@@ -42,19 +41,16 @@ public class SpaceInvaders
      */
     public final static int CONSTANT_PLACE_SPACECRAFT_Y = 7;
 
-    // TODO (fixed) rewrite comment
     /**
      * Declaration of the Grid to put our elements in it, like Spacecraft, enemies etc .. 
      */
     private int[][] grid;
 
-    // TODO (fixed) write comment
     /**
      * Declaration of the current enemies line 
      */
     private int currentEnemiesLine;
 
-    // TODO (fixed) write comment
     /**
      * Declaration of enemies line limit 
      */
@@ -203,11 +199,15 @@ public class SpaceInvaders
         }
     }
     
+    
+    // TODO (fix) this method should be the only public method in this class
     /**
      * Method to play
      */
     public void play()
     {
+        // TODO (fix) go on with realistic game algorithm
+        // where the player is asked to move or shoot ?
         this.left();
         this.displayGrid();
         this.pause();
