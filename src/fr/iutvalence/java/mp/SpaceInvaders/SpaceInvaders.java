@@ -1,5 +1,7 @@
 package fr.iutvalence.java.mp.SpaceInvaders;
 
+import java.util.Random;
+
 /**
  * class SpaceInvaders : A new game
  * @author thevenim
@@ -56,6 +58,15 @@ public class SpaceInvaders
      */
     private int nextLineAfterEnemies;
 
+    /**
+     * Position Y of the Space Craft during the game
+     */
+    private int POS_Y;
+    
+    /**
+     * Position X of the fire during the game
+     */
+    private int POS_X;
 
     // TODO (fix) rewrite comment, say how is the game once created
     /**
@@ -66,15 +77,17 @@ public class SpaceInvaders
         this.grid = new int [CONSTANT_GRID][CONSTANT_GRID];
         this.currentEnemiesLine = 0;
         this.nextLineAfterEnemies = 3;
-        this.fillGridWithSpaceCraftAndEmptyCase();    
+        this.fillGrid();
+        this.POS_Y=CONSTANT_PLACE_SPACECRAFT_Y;
+        this.POS_X=CONSTANT_PLACE_SPACECRAFT_X-1;
 
     }
 
     /**
      * Method to place elements in the grid cell
      */
-    // TODO (fix) rename method
-    public void fillGridWithSpaceCraftAndEmptyCase()
+    // TODO (fixed) rename method
+    private void fillGrid()
     {
         for(int x=0; x<15; x++)
         {
@@ -87,9 +100,9 @@ public class SpaceInvaders
     }
 
     /**
-     * method to display the grid with elements
+     * Method to display the grid with elements
      */
-    public void displayGrid()
+    private void displayGrid()
     {
         for(int x=0; x<15; x++)
         {
@@ -111,7 +124,7 @@ public class SpaceInvaders
     /**
      * Method to move elements to the left
      */
-    public void left()
+    private void left()
     {
         for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
         {
@@ -130,7 +143,7 @@ public class SpaceInvaders
     /**
      * Method to move elements to the center
      */
-    public void center()
+    private void center()
     {
         for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
         {
@@ -152,7 +165,7 @@ public class SpaceInvaders
     /**
      * Method to move elements to the right
      */
-    public void right()
+    private void right()
     {
         for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
         {
@@ -170,7 +183,7 @@ public class SpaceInvaders
     /**
      * Method to down 
      */
-    public void changeLine()
+    private void changeLine()
     {
         for(int x=this.currentEnemiesLine;x<this.nextLineAfterEnemies;x++)
         {
@@ -184,13 +197,68 @@ public class SpaceInvaders
     }
     
     /**
+     * Method to shoot enemies randomly
+     */
+    private void randomShoot()
+    {
+        Random t = new Random();
+        
+        if (t.nextInt(2)==1)
+        {
+            this.grid[this.POS_X][CONSTANT_PLACE_SPACECRAFT_Y]=CONSTANT_FIRE;
+            this.POS_X--;   
+        }
+        
+    }
+
+    /**
+     * Method to move Space Craft randomly
+     */
+    private void randomMovement()
+    { 
+        Random r = new Random();
+
+        if (r.nextInt(2)==0)
+        {
+            if (this.POS_Y == 0)
+            {
+                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y+1]=CONSTANT_SPACECRAFT;
+                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y]=CONSTANT_EMPTY;
+                this.POS_Y++; 
+            }
+            else 
+            {        
+                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y-1]=CONSTANT_SPACECRAFT;
+                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y]=CONSTANT_EMPTY;
+                this.POS_Y--;
+            }
+
+        }
+        else
+        {
+            if (this.POS_Y == 14)
+            {
+                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y-1]=CONSTANT_SPACECRAFT;
+                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y]=CONSTANT_EMPTY;
+                this.POS_Y--;
+            }
+            else
+            {
+                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y+1]=CONSTANT_SPACECRAFT;
+                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y]=CONSTANT_EMPTY;
+                this.POS_Y++;
+            }
+        }   
+    }
+
+    /**
      * Method to pause
      */
-    public void pause()
+    private void pause()
     {
         try
         {
-            Thread.sleep(3000); // wait 3s //
+            Thread.sleep(1500); // wait 3s //
         }
         catch (InterruptedException e)
         {
@@ -198,9 +266,9 @@ public class SpaceInvaders
             e.printStackTrace();
         }
     }
-    
-    
-    // TODO (fix) this method should be the only public method in this class
+
+
+    // TODO (fixED) this method should be the only public method in this class
     /**
      * Method to play
      */
@@ -210,15 +278,23 @@ public class SpaceInvaders
         // where the player is asked to move or shoot ?
         this.left();
         this.displayGrid();
+        this.randomMovement();
+        this.randomShoot();
         this.pause();
-        this.center();
+        this.center(); 
         this.displayGrid();
+        this.randomMovement();
+        this.randomShoot();
         this.pause();
         this.right();
         this.displayGrid();
+        this.randomMovement();
+        this.randomShoot();
         this.pause();
         this.center();
         this.displayGrid();
+        this.randomMovement();
+        this.randomShoot();
         this.pause();
         this.left();
         this.displayGrid();
