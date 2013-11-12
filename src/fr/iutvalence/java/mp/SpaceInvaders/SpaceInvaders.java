@@ -32,6 +32,11 @@ public class SpaceInvaders
      * constant which represent the Void
      */
     public final static int CONSTANT_EMPTY = 0;
+    
+    /**
+     * constant which represent where the enemy is down
+     */
+    public final static int CONSTANT_ENEMY_DOWN = 9;
 
     /**
      * Declaration of the place of Spacecraft on the grid at the beginning (Line)
@@ -62,11 +67,11 @@ public class SpaceInvaders
      * Position Y of the Space Craft during the game
      */
     private int POS_Y;
-    
+
     /**
      * Position X of the fire during the game
      */
-    private int POS_X;
+    private int POS_X_Fire;
 
     // TODO (fix) rewrite comment, say how is the game once created
     /**
@@ -79,7 +84,7 @@ public class SpaceInvaders
         this.nextLineAfterEnemies = 3;
         this.fillGrid();
         this.POS_Y=CONSTANT_PLACE_SPACECRAFT_Y;
-        this.POS_X=CONSTANT_PLACE_SPACECRAFT_X-1;
+        this.POS_X_Fire=CONSTANT_PLACE_SPACECRAFT_X-1;
 
     }
 
@@ -108,11 +113,11 @@ public class SpaceInvaders
         {
             for(int y = 0; y<15; y++)
             {
-                if (this.grid[x][y]==CONSTANT_EMPTY) /* if we have some empty box, we put V */
+                if (this.grid[x][y]==CONSTANT_EMPTY || this.grid[x][y]==CONSTANT_ENEMY_DOWN) /* if we have some empty box, we put V */
                 {
                     System.out.print("V");
                 }
-                else 
+                else
                 {
                     System.out.print(this.grid[x][y]); // display the grid normally //
                 }    
@@ -130,7 +135,10 @@ public class SpaceInvaders
         {
             for(int y = 0; y<13; y++)
             {
-                this.grid[x][y]=CONSTANT_ENEMY;
+                if (this.grid[x][y] != CONSTANT_ENEMY_DOWN)
+                {
+                    this.grid[x][y]=CONSTANT_ENEMY;
+                }
             }
             for(int y = 13; y<15; y++)
             {
@@ -153,12 +161,16 @@ public class SpaceInvaders
             }
             for(int y = 1; y<14; y++)
             {
-                this.grid[x][y]=CONSTANT_ENEMY;
+                if (this.grid[x][y] != CONSTANT_ENEMY_DOWN)
+                {
+                    this.grid[x][y]=CONSTANT_ENEMY;
+                }
             }
             for(int y = 14; y<15; y++)
             {
                 this.grid[x][y]=CONSTANT_EMPTY;
             }
+
         }
     }
 
@@ -175,13 +187,16 @@ public class SpaceInvaders
             }
             for(int y = 2; y<15; y++)
             {
-                this.grid[x][y]=CONSTANT_ENEMY;
+                if (this.grid[x][y] != CONSTANT_ENEMY_DOWN)
+                {
+                    this.grid[x][y]=CONSTANT_ENEMY;
+                }
             }
         }
     }
 
     /**
-     * Method to down 
+     * Method to down : erase all enemies and create enemies on down line 
      */
     private void changeLine()
     {
@@ -189,26 +204,39 @@ public class SpaceInvaders
         {
             for ( int y = 0; y<15;y++)
             {
-                this.grid[x][y]=CONSTANT_EMPTY;
+                if (this.grid[x][y] != CONSTANT_ENEMY_DOWN)
+                {
+                    this.grid[x][y]=CONSTANT_EMPTY;
+                } 
             }
         }
         this.currentEnemiesLine ++;
         this.nextLineAfterEnemies ++;
     }
-    
+
     /**
      * Method to shoot enemies randomly
      */
     private void randomShoot()
     {
+        int POS_Y_Fire = this.POS_Y; // To save the column of the fire 
         Random t = new Random();
-        
+
         if (t.nextInt(2)==1)
-        {
-            this.grid[this.POS_X][CONSTANT_PLACE_SPACECRAFT_Y]=CONSTANT_FIRE;
-            this.POS_X--;   
-        }
-        
+        {            
+            while(this.grid[this.POS_X_Fire][POS_Y_Fire]!=CONSTANT_ENEMY && this.POS_X_Fire>0 )
+            {
+                this.grid[this.POS_X_Fire][POS_Y_Fire]=CONSTANT_FIRE;
+                this.displayGrid();
+                this.POS_X_Fire--;
+                this.grid[this.POS_X_Fire+1][POS_Y_Fire]=CONSTANT_EMPTY;
+            }
+            if(this.grid[this.POS_X_Fire][POS_Y_Fire]==CONSTANT_ENEMY)
+            {
+                this.grid[this.POS_X_Fire][POS_Y_Fire]=CONSTANT_ENEMY_DOWN;
+            }
+            this.POS_X_Fire=CONSTANT_PLACE_SPACECRAFT_X-1;
+        }        
     }
 
     /**

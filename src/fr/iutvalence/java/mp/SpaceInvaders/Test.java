@@ -16,6 +16,7 @@ public class Test
         while(true)
         {
             newGame.play();
+           
         }
 
 
