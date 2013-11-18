@@ -72,6 +72,11 @@ public class SpaceInvaders
      * Position X of the fire during the game
      */
     private int POS_X_Fire;
+    
+    /**
+     * Enemy
+     */
+    Enemy newEnemy;
 
     // TODO (fix) rewrite comment, say how is the game once created
     /**
@@ -138,7 +143,8 @@ public class SpaceInvaders
       
             for(int y = 0; y<13; y++)
             {
-                this.grid[x][y]= new Enemy(y,y+1,y+2);
+                this.newEnemy = new Enemy(y,y+1,y+2);
+                this.grid[x][y]= this.newEnemy;
                 
             }
         }
@@ -147,7 +153,7 @@ public class SpaceInvaders
     /**
      * Method to move elements to the left
      */
-    /*private void left()
+   /* private void left()
     {
         for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
         {
@@ -155,8 +161,8 @@ public class SpaceInvaders
             {
                 if (this.grid[x][y] != CONSTANT_ENEMY_DOWN)
                 {
-                    
-                    this.grid[x][y]= new Enemy(y,y+1,y+2);
+                 System.out.println(this.newEnemy.getY());
+                   
                 }
             }
             for(int y = 13; y<15; y++)
@@ -323,6 +329,7 @@ public class SpaceInvaders
     {
         // TODO (fix) go on with realistic game algorithm
         // where the player is asked to move or shoot ?
+        //this.left();
         this.displayGrid();
         this.randomMovement();
         this.randomShoot();
@@ -341,6 +348,7 @@ public class SpaceInvaders
         this.displayGrid();
         this.randomMovement();
         this.randomShoot();
+        //this.left();
         this.pause();
         this.displayGrid();
         this.pause();

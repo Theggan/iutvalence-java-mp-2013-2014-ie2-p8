@@ -1,17 +1,24 @@
 package fr.iutvalence.java.mp.SpaceInvaders;
 
+/**
+ * Class of enemy
+ * @author thevenim
+ *
+ */
 public class Enemy
 {
     /**
      * To know if the enemy is dead or alive
      */
     private String state;
-    private int currentEnemiesLine;
     private int yLeft;
     private int yCenter;
     private int yRight;
     
 
+    /**
+     * to create default enemy
+     */
     public Enemy()
     {
       this.state =  "Alive";
@@ -44,16 +51,21 @@ public class Enemy
     {
        this.yLeft = yL; 
        this.yCenter = yC;
-       this.yRight =yR;
+       this.yRight = yR;
     }
-    public void setState( String changeState)
+    public void setState(String changeState)
     {
         this.state = changeState;
     }
-
+    
+    
+    public int getY()
+    {
+        return (this.yLeft);
+    }
+    
     public String toString()
     {
         return "6";
-        
     }
 }
