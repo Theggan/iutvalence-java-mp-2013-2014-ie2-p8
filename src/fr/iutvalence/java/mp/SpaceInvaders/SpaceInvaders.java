@@ -21,7 +21,7 @@ public class SpaceInvaders
     /**
      * constant which represent the Enemy
      */
-    public final static int CONSTANT_ENEMY = 6;
+    public final static Object CONSTANT_ENEMY = 6;
 
     /**
      * constant which represent the Fire
@@ -31,12 +31,12 @@ public class SpaceInvaders
     /**
      * constant which represent the Void
      */
-    public final static int CONSTANT_EMPTY = 0;
+    public final static Object CONSTANT_EMPTY = 0;
     
     /**
      * constant which represent where the enemy is down
      */
-    public final static int CONSTANT_ENEMY_DOWN = 9;
+    public final static Object CONSTANT_ENEMY_DOWN = 9;
 
     /**
      * Declaration of the place of Spacecraft on the grid at the beginning (Line)
@@ -51,7 +51,7 @@ public class SpaceInvaders
     /**
      * Declaration of the Grid to put our elements in it, like Spacecraft, enemies etc .. 
      */
-    private int[][] grid;
+    private Object[][] grid;
 
     /**
      * Declaration of the current enemies line 
@@ -79,10 +79,11 @@ public class SpaceInvaders
      */
     public SpaceInvaders()
     {   
-        this.grid = new int [CONSTANT_GRID][CONSTANT_GRID];
+        this.grid = new Object [CONSTANT_GRID][CONSTANT_GRID];
         this.currentEnemiesLine = 0;
         this.nextLineAfterEnemies = 3;
         this.fillGrid();
+        this.putEnemies();
         this.POS_Y=CONSTANT_PLACE_SPACECRAFT_Y;
         this.POS_X_Fire=CONSTANT_PLACE_SPACECRAFT_X-1;
 
@@ -125,11 +126,28 @@ public class SpaceInvaders
             System.out.println();
         }
     }
+    
+    /**
+     * Method to create some new enemies
+     */
+    private void putEnemies()
+    {
+        for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
+        {
+            
+      
+            for(int y = 0; y<13; y++)
+            {
+                this.grid[x][y]= new Enemy(y,y+1,y+2);
+                
+            }
+        }
+    }
 
     /**
      * Method to move elements to the left
      */
-    private void left()
+    /*private void left()
     {
         for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
         {
@@ -137,7 +155,8 @@ public class SpaceInvaders
             {
                 if (this.grid[x][y] != CONSTANT_ENEMY_DOWN)
                 {
-                    this.grid[x][y]=CONSTANT_ENEMY;
+                    
+                    this.grid[x][y]= new Enemy(y,y+1,y+2);
                 }
             }
             for(int y = 13; y<15; y++)
@@ -146,7 +165,7 @@ public class SpaceInvaders
 
             }
         }
-    }
+    }*/
 
     /**
      * Method to move elements to the center
@@ -304,7 +323,6 @@ public class SpaceInvaders
     {
         // TODO (fix) go on with realistic game algorithm
         // where the player is asked to move or shoot ?
-        this.left();
         this.displayGrid();
         this.randomMovement();
         this.randomShoot();
@@ -324,7 +342,6 @@ public class SpaceInvaders
         this.randomMovement();
         this.randomShoot();
         this.pause();
-        this.left();
         this.displayGrid();
         this.pause();
         this.changeLine();

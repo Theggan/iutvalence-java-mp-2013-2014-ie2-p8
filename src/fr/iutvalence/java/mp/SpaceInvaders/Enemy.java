@@ -19,6 +19,21 @@ public class Enemy
       this.yCenter = 1;
       this.yRight = 2;
     }
+    
+    
+    /**
+     * to create enemy with parameters
+     * @param pyLeft
+     * @param pyCenter
+     * @param pyRight
+     */
+    public Enemy(int pyLeft,int pyCenter, int pyRight)
+    {
+        this.state = "Alive";
+        this.yLeft = pyLeft;
+        this.yCenter = pyCenter;
+        this.yRight = pyRight;
+    }
     /**
      * to have access of the enemy's position
      * @param yL
@@ -31,5 +46,14 @@ public class Enemy
        this.yCenter = yC;
        this.yRight =yR;
     }
+    public void setState( String changeState)
+    {
+        this.state = changeState;
+    }
 
+    public String toString()
+    {
+        return "6";
+        
+    }
 }
