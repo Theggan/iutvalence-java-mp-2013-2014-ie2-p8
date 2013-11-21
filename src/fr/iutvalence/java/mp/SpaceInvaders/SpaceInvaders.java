@@ -52,7 +52,7 @@ public class SpaceInvaders
      * Declaration of the Grid to put our elements in it, like Spacecraft, enemies etc ..
      */
     private int[][] grid;
-    
+
     /**
      * declaration of empty grid to erase a line
      */
@@ -132,6 +132,8 @@ public class SpaceInvaders
                 {
                     System.out.print(this.grid[x][y]); // display the grid normally //
                 }
+
+
             }
             System.out.println();
         }
@@ -198,7 +200,7 @@ public class SpaceInvaders
     /**
      * Method to move elements to the right
      */
-    private void right()
+    private void right() // problem when an extrem left enemies is dead, he comes back
     {
         for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
         {
@@ -237,10 +239,13 @@ public class SpaceInvaders
             while(this.grid[this.POS_X_Fire][POS_Y_Fire]!=CONSTANT_ENEMY && this.POS_X_Fire>0 )
             {
                 this.grid[this.POS_X_Fire][POS_Y_Fire]=CONSTANT_FIRE;
-                this.displayGrid();
-                this.pauseShoot();
+
                 this.POS_X_Fire--;
                 
+                this.displayGrid();
+                this.grid[this.POS_X_Fire+1][POS_Y_Fire]=CONSTANT_EMPTY;
+                this.pauseShoot();
+
             }
             if(this.grid[this.POS_X_Fire][POS_Y_Fire]==CONSTANT_ENEMY)
             {
@@ -309,7 +314,7 @@ public class SpaceInvaders
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Method to pause the shoot
      */
