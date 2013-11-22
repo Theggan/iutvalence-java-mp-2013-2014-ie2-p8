@@ -124,7 +124,7 @@ public class SpaceInvaders
         {
             for(int y = 0; y<15; y++)
             {
-                if (this.grid[x][y]==CONSTANT_EMPTY || this.grid[x][y]==CONSTANT_ENEMY_DOWN) /* if we have some empty box, we put V */
+                if (this.grid[x][y]==CONSTANT_EMPTY ) /* if we have some empty box, we put V */
                 {
                     System.out.print("V");
                 }
@@ -236,7 +236,7 @@ public class SpaceInvaders
 
         if (t.nextInt(2)==1)
         {
-            while(this.grid[this.POS_X_Fire][POS_Y_Fire]!=CONSTANT_ENEMY && this.POS_X_Fire>0 )
+            while(this.grid[this.POS_X_Fire][POS_Y_Fire]!=CONSTANT_ENEMY && this.POS_X_Fire>this.currentEnemiesLine-1 )
             {
                 this.grid[this.POS_X_Fire][POS_Y_Fire]=CONSTANT_FIRE;
 
@@ -244,12 +244,17 @@ public class SpaceInvaders
                 
                 this.displayGrid();
                 this.grid[this.POS_X_Fire+1][POS_Y_Fire]=CONSTANT_EMPTY;
+                if (this.grid[this.POS_X_Fire][POS_Y_Fire]<this.currentEnemiesLine)
+                {
+                    this.grid[this.POS_X_Fire][POS_Y_Fire]=CONSTANT_EMPTY;
+                }
                 this.pauseShoot();
 
             }
+            
             if(this.grid[this.POS_X_Fire][POS_Y_Fire]==CONSTANT_ENEMY)
             {
-                this.grid[this.POS_X_Fire][POS_Y_Fire]=CONSTANT_ENEMY_DOWN;
+                this.grid[this.POS_X_Fire][POS_Y_Fire]=CONSTANT_EMPTY;
             }
             if (this.POS_X_Fire == 0)
             {
