@@ -337,7 +337,6 @@ public class SpaceInvaders
     }
 
 
-    // TODO (fixED) this method should be the only public method in this class
     /**
      * Method to play
      */
