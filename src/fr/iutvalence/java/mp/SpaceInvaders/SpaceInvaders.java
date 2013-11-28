@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class SpaceInvaders
 {
     /**
-     * To control our space craft with Q and D
+     * To control our space craft with q and d
      */
     private Scanner movementRequest = new Scanner(System.in);
     
