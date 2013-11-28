@@ -1,6 +1,7 @@
 package fr.iutvalence.java.mp.SpaceInvaders;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * class SpaceInvaders : A new game
@@ -9,12 +10,22 @@ import java.util.Random;
 public class SpaceInvaders
 {
     /**
+     * To control our space craft with Q and D
+     */
+    private Scanner movementRequest = new Scanner(System.in);
+    
+    /**
+     * to save the request about movement
+     */
+    private char movementSlot;
+    
+    /**
      * size of the grid ( 15 per 15 )
      */
     public final static int CONSTANT_GRID = 15;
 
     /**
-     * constant which represent the Spacecraft
+     * constant which represent the Space craft
      */
     public final static int CONSTANT_SPACECRAFT = 7;
 
@@ -267,11 +278,16 @@ public class SpaceInvaders
     /**
      * Method to move Space Craft randomly
      */
-    private void randomMovement()
+    private void Movement()
     {
-        Random r = new Random();
+        do
+        {
+            System.out.println("Left or Right ? (q or d) ");
+            this.movementSlot = this.movementRequest.nextLine().charAt(0);
+        }while(this.movementSlot!='q' && this.movementSlot!='d');
+        
 
-        if (r.nextInt(2)==0)
+        if (this.movementSlot == 'q')
         {
             if (this.POS_Y == 0)
             {
@@ -287,7 +303,7 @@ public class SpaceInvaders
             }
 
         }
-        else
+        else if(this.movementSlot == 'd')
         {
             if (this.POS_Y == 14)
             {
@@ -344,23 +360,24 @@ public class SpaceInvaders
     {
         // TODO (fix) go on with realistic game algorithm
         // where the player is asked to move or shoot ?
+       
         this.displayGrid();
-        this.randomMovement();
+        this.Movement();
         this.randomShoot();
         this.pause();
         this.centerFromLeft();
         this.displayGrid();
-        this.randomMovement();
+        this.Movement();
         this.randomShoot();
         this.pause();
         this.right();
         this.displayGrid();
-        this.randomMovement();
+        this.Movement();
         this.randomShoot();
         this.pause();
         this.centerFromRight();
         this.displayGrid();
-        this.randomMovement();
+        this.Movement();
         this.randomShoot();
         this.pause();
         this.left();
