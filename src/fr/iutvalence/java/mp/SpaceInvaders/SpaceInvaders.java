@@ -300,7 +300,6 @@ public class SpaceInvaders
 
     }
 
-
     /**
      * Method to move Space Craft
      */
