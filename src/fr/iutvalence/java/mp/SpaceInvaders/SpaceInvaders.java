@@ -306,9 +306,6 @@ public class SpaceInvaders
      */
     private void Movement()
     {
-
-
-
         if (this.requestSlot == 'q')
         {
             if (this.POS_Y == 0)
