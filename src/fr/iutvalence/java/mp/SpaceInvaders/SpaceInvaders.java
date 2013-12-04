@@ -9,16 +9,19 @@ import java.util.Scanner;
  */
 public class SpaceInvaders
 {
+
+
+
     /**
      * To control our space craft with q and d
      */
-    private Scanner movementRequest = new Scanner(System.in);
-    
+    private Scanner Request = new Scanner(System.in);
+
     /**
      * to save the request about movement
      */
-    private char movementSlot;
-    
+    private char requestSlot;
+
     /**
      * size of the grid ( 15 per 15 )
      */
@@ -50,7 +53,7 @@ public class SpaceInvaders
     public final static int CONSTANT_ENEMY_DOWN = 9;
 
     /**
-     * Declaration of the place of Spacecraft on the grid at the beginning (Line)
+     * Declaration of the place of Space craft on the grid at the beginning (Line)
      */
     public final static int CONSTANT_PLACE_SPACECRAFT_X = 14;
 
@@ -143,8 +146,6 @@ public class SpaceInvaders
                 {
                     System.out.print(this.grid[x][y]); // display the grid normally //
                 }
-
-
             }
             System.out.println();
         }
@@ -211,11 +212,11 @@ public class SpaceInvaders
     /**
      * Method to move elements to the right
      */
-    private void right() // problem when an extrem left enemies is dead, he comes back
+    private void right() 
     {
         for(int x=this.currentEnemiesLine; x<this.nextLineAfterEnemies; x++)
         {
-            for(int y = 14; y>2; y--)
+            for(int y = 14; y>1; y--)
             {
                 this.grid[x][y]=this.grid[x][y-1];
             }
@@ -228,72 +229,92 @@ public class SpaceInvaders
      */
     private void changeLine()
     {
-        int x=this.currentEnemiesLine; 
-        this.grid[x+3] = this.grid[x+2];
-        this.grid[x+2] = this.grid[x+1];
-        this.grid[x+1] = this.grid[x];
-        this.grid[x] = this.gridEmpty;
-        this.currentEnemiesLine ++;
-        this.nextLineAfterEnemies ++;
+        if (this.nextLineAfterEnemies == 14)
+        {
+            int x=this.currentEnemiesLine; 
+            this.grid[x+3] = this.grid[x+2];
+            this.grid[x+2] = this.grid[x+1];
+            this.grid[x+1] = this.grid[x];
+            this.grid[x] = this.gridEmpty;
+            this.displayGrid();
+            System.out.println("GAME OVER");
+            while(true);
+        }
+        else
+        {
+            int x=this.currentEnemiesLine; 
+            this.grid[x+3] = this.grid[x+2];
+            this.grid[x+2] = this.grid[x+1];
+            this.grid[x+1] = this.grid[x];
+            this.grid[x] = this.gridEmpty;
+            this.currentEnemiesLine ++;
+            this.nextLineAfterEnemies ++;
+        }
     }
 
     /**
-     * Method to shoot enemies randomly
+     * Method to shoot enemies
      */
-    private void randomShoot()
+    private void Shoot()
     {
         int POS_Y_Fire = this.POS_Y; // To save the column of the fire
-        Random t = new Random();
 
-        if (t.nextInt(2)==1)
+
+
         {
-            while(this.grid[this.POS_X_Fire][POS_Y_Fire]!=CONSTANT_ENEMY && this.POS_X_Fire>this.currentEnemiesLine-1 )
+            while(this.grid[this.POS_X_Fire][POS_Y_Fire]==CONSTANT_EMPTY && this.POS_X_Fire>this.currentEnemiesLine-1)
             {
                 this.grid[this.POS_X_Fire][POS_Y_Fire]=CONSTANT_FIRE;
-
                 this.POS_X_Fire--;
-                
                 this.displayGrid();
-                this.grid[this.POS_X_Fire+1][POS_Y_Fire]=CONSTANT_EMPTY;
-                if (this.grid[this.POS_X_Fire][POS_Y_Fire]<this.currentEnemiesLine)
-                {
-                    this.grid[this.POS_X_Fire][POS_Y_Fire]=CONSTANT_EMPTY;
-                }
+                this.grid[this.POS_X_Fire+1][POS_Y_Fire]=CONSTANT_EMPTY;                
                 this.pauseShoot();
+            }
 
-            }
-            
             if(this.grid[this.POS_X_Fire][POS_Y_Fire]==CONSTANT_ENEMY)
-            {
-                this.grid[this.POS_X_Fire][POS_Y_Fire]=CONSTANT_EMPTY;
-            }
-            if (this.POS_X_Fire == 0)
             {
                 this.grid[this.POS_X_Fire][POS_Y_Fire]=CONSTANT_EMPTY;
             }
             this.POS_X_Fire=CONSTANT_PLACE_SPACECRAFT_X-1;
         }
     }
-
     /**
-     * Method to move Space Craft randomly
+     * To ask if you want to move and where or shoot
      */
-    private void Movement()
+    private void  askToMoveOrShoot()
     {
         do
         {
-            System.out.println("Left or Right ? (q or d) ");
-            this.movementSlot = this.movementRequest.nextLine().charAt(0);
-        }while(this.movementSlot!='q' && this.movementSlot!='d');
-        
+            System.out.println("Left or Right ? (q or d) or shoot ? (z) ");
+            this.requestSlot = this.Request.nextLine().charAt(0); // " charAt(0)" to take the char in the zero position
+        }while(this.requestSlot!='q' && this.requestSlot!='d' && this.requestSlot !='z');
 
-        if (this.movementSlot == 'q')
+        if (this.requestSlot =='z')
+        {
+            this.Shoot();
+        }
+        else
+        {
+            this.Movement();
+        }
+
+    }
+
+
+    /**
+     * Method to move Space Craft
+     */
+    private void Movement()
+    {
+
+
+
+        if (this.requestSlot == 'q')
         {
             if (this.POS_Y == 0)
             {
-                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y+1]=CONSTANT_SPACECRAFT;
-                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y]=CONSTANT_EMPTY;
-                this.POS_Y++;
+                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y]=CONSTANT_SPACECRAFT;
+
             }
             else
             {
@@ -303,13 +324,12 @@ public class SpaceInvaders
             }
 
         }
-        else if(this.movementSlot == 'd')
+        else if(this.requestSlot == 'd')
         {
             if (this.POS_Y == 14)
             {
-                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y-1]=CONSTANT_SPACECRAFT;
-                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y]=CONSTANT_EMPTY;
-                this.POS_Y--;
+                this.grid[CONSTANT_PLACE_SPACECRAFT_X][this.POS_Y]=CONSTANT_SPACECRAFT;
+
             }
             else
             {
@@ -327,7 +347,7 @@ public class SpaceInvaders
     {
         try
         {
-            Thread.sleep(1500); // wait 3s //
+            Thread.sleep(1); // wait 3s //
         }
         catch (InterruptedException e)
         {
@@ -358,30 +378,27 @@ public class SpaceInvaders
      */
     public void play()
     {
-        // TODO (fix) go on with realistic game algorithm
+        // TODO (fixed) go on with realistic game algorithm
         // where the player is asked to move or shoot ?
-       
+
         this.displayGrid();
-        this.Movement();
-        this.randomShoot();
+        this.askToMoveOrShoot();
         this.pause();
         this.centerFromLeft();
         this.displayGrid();
-        this.Movement();
-        this.randomShoot();
+        this.askToMoveOrShoot();
         this.pause();
         this.right();
         this.displayGrid();
-        this.Movement();
-        this.randomShoot();
+        this.askToMoveOrShoot();
         this.pause();
         this.centerFromRight();
         this.displayGrid();
-        this.Movement();
-        this.randomShoot();
+        this.askToMoveOrShoot();
         this.pause();
         this.left();
         this.displayGrid();
+        this.askToMoveOrShoot();
         this.pause();
         this.changeLine();
     }
