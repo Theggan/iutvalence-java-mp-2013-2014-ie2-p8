@@ -15,7 +15,9 @@ public class Test
         // TODO (fix) play should be called only once.
         while(true)
         {
+            newGame.t1.start();
             newGame.play();
+            
            
         }
 

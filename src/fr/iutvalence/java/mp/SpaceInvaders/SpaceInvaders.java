@@ -10,7 +10,10 @@ import java.util.Scanner;
 public class SpaceInvaders
 {
 
-
+/**
+ * thread declaration
+ */
+    public ThreadAsk t1 = new ThreadAsk();
 
     /**
      * To control our space craft with q and d
@@ -98,6 +101,7 @@ public class SpaceInvaders
      */
     public SpaceInvaders()
     {
+        
         this.grid = new int [CONSTANT_GRID][CONSTANT_GRID];
         this.currentEnemiesLine = 0;
         this.nextLineAfterEnemies = 3;
@@ -281,7 +285,7 @@ public class SpaceInvaders
     /**
      * To ask if you want to move and where or shoot
      */
-    private void  askToMoveOrShoot()
+    public void  askToMoveOrShoot()
     {
         do
         {
@@ -343,7 +347,7 @@ public class SpaceInvaders
     {
         try
         {
-            Thread.sleep(1); // wait 3s //
+            Thread.sleep(1500); // wait 3s //
         }
         catch (InterruptedException e)
         {
@@ -378,23 +382,23 @@ public class SpaceInvaders
         // where the player is asked to move or shoot ?
 
         this.displayGrid();
-        this.askToMoveOrShoot();
+        //this.askToMoveOrShoot();
         this.pause();
         this.centerFromLeft();
         this.displayGrid();
-        this.askToMoveOrShoot();
+        //this.askToMoveOrShoot();
         this.pause();
         this.right();
         this.displayGrid();
-        this.askToMoveOrShoot();
+        //this.askToMoveOrShoot();
         this.pause();
         this.centerFromRight();
         this.displayGrid();
-        this.askToMoveOrShoot();
+        //this.askToMoveOrShoot();
         this.pause();
         this.left();
         this.displayGrid();
-        this.askToMoveOrShoot();
+        //this.askToMoveOrShoot();
         this.pause();
         this.changeLine();
     }
