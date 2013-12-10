@@ -5,22 +5,20 @@ package fr.iutvalence.java.mp.SpaceInvaders;
  * @author thevenim
  *
  */
+
 public class Test
 {
-
+    
     public static void main(String[] args)
     {
         SpaceInvaders newGame = new SpaceInvaders();
+       
          
         // TODO (fix) play should be called only once.
-        while(true)
-        {
-            newGame.t1.start();
-            newGame.play();
-            
-           
-        }
-
+           ThreadAsk ask = new ThreadAsk(newGame);
+           ask.start();
+          
+           while (true) {newGame.play();}
 
 
     }

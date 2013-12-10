@@ -2,6 +2,7 @@ package fr.iutvalence.java.mp.SpaceInvaders;
 
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  * class SpaceInvaders : A new game
@@ -10,10 +11,7 @@ import java.util.Scanner;
 public class SpaceInvaders
 {
 
-/**
- * thread declaration
- */
-    public ThreadAsk t1 = new ThreadAsk();
+
 
     /**
      * To control our space craft with q and d
@@ -101,7 +99,7 @@ public class SpaceInvaders
      */
     public SpaceInvaders()
     {
-        
+
         this.grid = new int [CONSTANT_GRID][CONSTANT_GRID];
         this.currentEnemiesLine = 0;
         this.nextLineAfterEnemies = 3;
@@ -241,11 +239,14 @@ public class SpaceInvaders
             this.grid[x+1] = this.grid[x];
             this.grid[x] = this.gridEmpty;
             this.displayGrid();
-            System.out.println("GAME OVER");
+
+            JOptionPane.showMessageDialog(null, "GAME OVER", "", JOptionPane.WARNING_MESSAGE);
+
             while(true);
         }
         else
         {
+            
             int x=this.currentEnemiesLine; 
             this.grid[x+3] = this.grid[x+2];
             this.grid[x+2] = this.grid[x+1];
@@ -289,7 +290,7 @@ public class SpaceInvaders
     {
         do
         {
-            System.out.println("Left or Right ? (q or d) or shoot ? (z) ");
+            // System.out.println("Left or Right ? (q or d) or shoot ? (z) ");
             this.requestSlot = this.Request.nextLine().charAt(0); // " charAt(0)" to take the char in the zero position
         }while(this.requestSlot!='q' && this.requestSlot!='d' && this.requestSlot !='z');
 
@@ -347,7 +348,7 @@ public class SpaceInvaders
     {
         try
         {
-            Thread.sleep(1500); // wait 3s //
+            Thread.sleep(1500); // wait 1,5s //
         }
         catch (InterruptedException e)
         {
@@ -363,7 +364,7 @@ public class SpaceInvaders
     {
         try
         {
-            Thread.sleep(200); // wait 0,2 sec
+            Thread.sleep(150); // wait 0,15sec
         }
         catch (InterruptedException e)
         {

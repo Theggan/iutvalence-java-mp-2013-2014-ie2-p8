@@ -8,25 +8,34 @@ package fr.iutvalence.java.mp.SpaceInvaders;
  */
 public class ThreadAsk extends Thread
 {
-
+    /**
+     * A variable of SpaceInvaders Type
+     */
+    private SpaceInvaders spaceInvadersThread;
+    
+    /**
+     * Default constructor of our thread
+     */
     public ThreadAsk()
     {
        super(); // TODO Auto-generated constructor stub
     }
+    
     /**
      * Thread with parameter
-     * @param name
+     * @param newGame // parameter of our thread, his type is SpaceInvaders
      */
-    public ThreadAsk(String name)
+    public ThreadAsk(SpaceInvaders newGame)
     {
-        super(name);
+        super();
+        this.spaceInvadersThread = newGame;
     }
     
+    // what the thread do
     public void run()
     {
-        SpaceInvaders ask = new SpaceInvaders();
-        while(true)
-        ask.askToMoveOrShoot();
+       while (true) {this.spaceInvadersThread.askToMoveOrShoot();}
+        
     }
 
 }
